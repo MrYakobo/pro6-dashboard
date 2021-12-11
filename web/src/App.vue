@@ -3,70 +3,55 @@
     <div v-if="error != null">ERROR: {{ error }}</div>
     <div v-else-if="all_songs.length == 0">Laddar...</div>
     <div v-else>
-      <h1 class="text-xl m-2">Lovsångsbanken</h1>
-      <input
+      <!-- <h1 class="text-xl m-2">Lovsångsbanken</h1> -->
+      <!-- <input
         type="search"
         class="border-4 m-4 p-2"
         placeholder="Sök: O store Gud"
         v-model="query"
-      />
-
-      <div class="" v-if="mode == 'group_by_sunday'">
-        <div v-for="playlist in sunday_playlists" :key="playlist.playlist_date">
-          <p class="bg-purple-800 text-white p-2">
-            {{ fmt_date(playlist.playlist_date) }}
-          </p>
-          <div class="flex">
-            <p
-              v-for="song in playlist.songs"
-              :key="song"
-              class="
-                text-center
-                p-2
-                cursor-pointer
-                rounded
-                hover:shadow-lg
-                border-2 border-gray-200
-                font-bold
-                mb-2
-              "
-            >
-              {{ song }}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-4 gap-4" v-if="mode == 'view_all'">
-        <div v-for="song in songs" :key="song.title">
-          <Song :song="song" />
-        </div>
-      </div>
+      /> -->
+      <ul class="flex border-b text-white">
+        <li class="mr-6">
+          <router-link
+            class="bg-blue-700 inline-block rounded-t py-2 px-4 font-semibold"
+            to="/list"
+            >Visa Alla</router-link
+          >
+        </li>
+        <li class="mr-6">
+          <router-link
+            class="
+              bg-white
+              text-blue-900
+              inline-block
+              py-2
+              px-4
+              hover:bg-blue-100
+              font-semibold
+            "
+            to="/sunday"
+            >Gruppera Söndag</router-link
+          >
+        </li>
+      </ul>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import Song from './components/Song.vue'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
-  components: { Song },
+  name: 'App',
   data() {
     return {
-      all_songs: [],
-      playlists: [],
       query: '',
-      mode: 'view_all',
       error: null,
-      weekdays: ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
     }
   },
   computed: {
-    songs() {
-      let tmp = this.songs_query.slice()
-      tmp.sort((a, b) => a.title.localeCompare(b.title))
-      return tmp.slice(0, 100)
-    },
+    ...mapState(['all_songs', 'playlists']),
     songs_query() {
       if (this.filter == '')
         return this.all_songs
@@ -77,16 +62,9 @@ export default {
         return t.title.match(r) || t.text.replace("\n", " ").match(r)
       })
     },
-    sunday_playlists() {
-      return this.playlists.filter(t => t.playlist_date.getDay() == 0).sort((b, a) => a
-        .playlist_date - b.playlist_date)
-    }
   },
   methods: {
-    fmt_date(d) {
-      // Söndag V12
-      return this.weekdays[d.getDay()] + " V" + d.getWeek() + " " + d.getFullYear()
-    }
+    ...mapMutations(['set_playlists', 'set_all_songs']),
   },
   mounted() {
     Date.prototype.getWeek = function () {
@@ -102,10 +80,11 @@ export default {
       }
     })
       .then(a => {
-        this.playlists = a.map(p => {
+        let playlists = a.map(p => {
           p.playlist_date = new Date(p.playlist_date)
           return p
         })
+        this.set_playlists(playlists)
       })
       .catch((e) => {
         this.error = e
@@ -119,10 +98,11 @@ export default {
       }
     })
       .then(a => {
-        this.all_songs = a.map(t => {
+        let all_songs = a.map(t => {
           t.text = t.text.trim()
           return t
         }).filter(t => t.text.length > 0)
+        this.set_all_songs(all_songs)
       })
       .catch((e) => {
         this.error = e
