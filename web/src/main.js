@@ -2,6 +2,9 @@ import App from './App.vue';
 import ListAll from './components/ListAll.vue'
 import Sunday from './components/Sunday.vue'
 import SongDetail from './components/SongDetail.vue'
+import Stats from './components/Stats.vue'
+import OldSongs from './components/OldSongs.vue'
+import Randomize from './components/Randomize.vue'
 
 import Vue from 'vue';
 import Vuex from 'vuex'
@@ -22,6 +25,18 @@ const routes = [{
   {
     path: '/sunday',
     component: Sunday
+  },
+  {
+    path: '/stats',
+    component: Stats
+  },
+  {
+    path: '/oldsongs',
+    component: OldSongs
+  },
+  {
+    path: '/randomize',
+    component: Randomize
   }
 ]
 
@@ -34,6 +49,12 @@ const store = new Vuex.Store({
     all_songs: [],
     playlists: []
   },
+  getters: {
+    sunday_playlists(state) {
+      return state.playlists.filter(t => t.playlist_date.getDay() == 0).sort((b, a) => a
+        .playlist_date - b.playlist_date)
+    }
+  },
   mutations: {
     set_all_songs(state, all_songs) {
       state.all_songs = all_songs
@@ -43,6 +64,8 @@ const store = new Vuex.Store({
     }
   }
 })
+
+import './index.css'
 
 new Vue({
   render: (h) => h(App),

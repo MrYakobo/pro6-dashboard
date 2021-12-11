@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .router-link.router-link-active {
+        @apply text-white bg-blue-700 inline-block hover:bg-blue-800 py-2 px-4 font-semibold;
+    }
+
+    .router-link {
+        @apply hover:underline bg-white text-blue-900 inline-block py-2 px-4 hover:bg-blue-200 font-semibold;
+    }
+}
