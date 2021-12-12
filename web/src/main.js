@@ -1,10 +1,11 @@
 import App from './App.vue';
 import ListAll from './components/ListAll.vue'
-import Sunday from './components/Sunday.vue'
+import History from './components/History.vue'
 import SongDetail from './components/SongDetail.vue'
 import Stats from './components/Stats.vue'
 import OldSongs from './components/OldSongs.vue'
 import Randomize from './components/Randomize.vue'
+import Index from './components/Index.vue'
 
 import Vue from 'vue';
 import Vuex from 'vuex'
@@ -23,8 +24,8 @@ const routes = [{
     component: ListAll
   },
   {
-    path: '/sunday',
-    component: Sunday
+    path: '/history',
+    component: History
   },
   {
     path: '/stats',
@@ -35,8 +36,13 @@ const routes = [{
     component: OldSongs
   },
   {
-    path: '/randomize',
-    component: Randomize
+    path: '/randomize/:song_ids_b64?',
+    component: Randomize,
+    props: true
+  },
+  {
+    path: '/',
+    redirect: '/history'
   }
 ]
 

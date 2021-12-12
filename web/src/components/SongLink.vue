@@ -1,23 +1,45 @@
 <template>
     <router-link
-        :to="'/song/' + song"
+        :title="song"
+        :to="link"
         class="
-            text-center
-            bg-blue-50
+            flex
+            justify-center
+            items-center
+            text-center text-gray-700
+            hover:text-green-400
             p-2
-            mx-1
+            rounded-md
             cursor-pointer
-            hover:shadow-lg
-            border border-gray-200
+            hover:underline
+            border-2 border-gray
             font-semibold
+            bg-white
+            overflow-hidden
+            break-words
         "
     >
-        {{ song }}
+        {{ truncate(song) }}
     </router-link>
 </template>
 <script>
 export default {
     name: 'SongLink',
-    props: ['song']
+    props: ['song'],
+    data() {
+        return {
+            maxlen: 40
+        }
+    },
+    computed: {
+        link() {
+            return '/song/' + encodeURIComponent(this.song)
+        }
+    },
+    methods: {
+        truncate(input) {
+            return input.length > this.maxlen ? `${input.substring(0, this.maxlen)}...` : input
+        }
+    }
 }
 </script>

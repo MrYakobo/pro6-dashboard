@@ -1,0 +1,6 @@
+{
+    "[css]": {
+        "editor.formatOnSave": false
+    },
+    "vetur.format.options.tabSize": 4,
+}

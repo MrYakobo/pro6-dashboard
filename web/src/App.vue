@@ -1,56 +1,61 @@
 <template>
-    <div id="app" class="font-sans p-4 rounded-t">
+    <div id="app" class="font-sans p-3 sm:p-4 rounded-t">
         <div v-if="error != null">ERROR: {{ error }}</div>
         <div v-else-if="all_songs.length == 0">Laddar...</div>
         <div v-else>
-            <!-- <h1 class="text-xl m-2">Lovsångsbanken</h1> -->
-            <ul class="flex border-b border-blue-200 pb-2 text-white">
-                <li class="mr-2 font-bold text-slate-700 text-3xl">
-                    <p>Lovsångsbanken</p>
+            <ul
+                class="
+                    sticky
+                    top-0
+                    bg-white
+                    rounded-lg
+                    py-2
+                    flex flex-wrap
+                    border-b border-blue-200
+                    justify-center
+                    text-white
+                "
+            >
+                <li
+                    class="
+                        flex
+                        items-center
+                        justify-center
+                        mx-auto
+                        md:mx-1 md:pr-5 md:mb-0
+                        mb-2
+                        w-full
+                        text-center
+                        md:w-auto
+                    "
+                >
+                    <router-link to="/history"
+                        ><img class="h-10 w-10" src="/public/favicon.png"
+                    /></router-link>
                 </li>
-                <li class="mr-2">
-                    <router-link
-                        class="router-link rounded-t border border-blue-200"
-                        to="/list"
-                        >Sök</router-link
-                    >
+                <li class="mr-1">
+                    <NavLink to="/history" text="Historik" />
                 </li>
-                <li class="mr-2">
-                    <router-link
-                        class="router-link rounded-t border border-blue-200"
-                        to="/sunday"
-                        >Historik</router-link
-                    >
+                <li class="mr-1">
+                    <NavLink to="/stats" text="Statistik" />
                 </li>
-                <li class="mr-2">
-                    <router-link
-                        class="router-link rounded-t border border-blue-200"
-                        to="/stats"
-                        >Statistik</router-link
-                    >
+                <li class="mr-1">
+                    <NavLink to="/oldsongs" text="Gamla låtar" />
                 </li>
-                <li class="mr-2">
-                    <router-link
-                        class="router-link rounded-t border border-blue-200"
-                        to="/oldsongs"
-                        >Gamla låtar</router-link
-                    >
-                </li>
-                <li class="mr-2">
-                    <router-link
-                        class="router-link rounded-t border border-blue-200"
-                        to="/randomize"
-                        >Slumpa</router-link
-                    >
+                <li class="mr-1">
+                    <NavLink to="/randomize" text="Slumpa" />
                 </li>
             </ul>
-            <router-view></router-view>
+            <div class="my-4">
+                <router-view :key="$route.fullPath"></router-view>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import { mapMutations, mapState } from 'vuex'
+import NavLink from './components/NavLink.vue'
 
 export default {
     name: 'App',
@@ -59,6 +64,7 @@ export default {
             error: null,
         }
     },
+    components: { NavLink },
     computed: {
         ...mapState(['all_songs', 'playlists']),
     },

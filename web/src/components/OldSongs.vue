@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <h1 class="font-bold text-xl my-6">
+    <div class="text-center">
+        <!-- <h1 class="font-bold text-xl my-6">
             Dessa sånger har vi inte kört på ett tag
-        </h1>
-        <div class="h-96 inline-block px-4 overflow-auto">
-            <table>
+        </h1> -->
+        <div class="inline-block sm:px-4 overflow-auto">
+            <table class="text-left px-5">
                 <thead>
                     <tr>
                         <th class="border-b">Lovsång</th>
@@ -18,7 +18,7 @@
                         :key="tuple[0]"
                     >
                         <td>
-                            <SongLink :song="tuple[0]" />
+                            <SongLink class="mr-8 w-64" :song="tuple[0]" />
                         </td>
                         <td>
                             <time :datetime="iso(tuple[1])">{{
@@ -31,13 +31,6 @@
         </div>
     </div>
 </template>
-<style>
-th {
-    position: sticky;
-    top: 0;
-    background: #fff;
-}
-</style>
 <script>
 import { mapGetters, mapState } from 'vuex'
 import SongLink from './SongLink.vue'
