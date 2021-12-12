@@ -5,6 +5,7 @@
         <div v-else>
             <ul
                 class="
+                    z-10
                     sticky
                     top-0
                     bg-white
@@ -29,20 +30,23 @@
                         md:w-auto
                     "
                 >
-                    <router-link to="/history"
+                    <router-link to="/find"
                         ><img class="h-10 w-10" src="/public/favicon.png"
                     /></router-link>
                 </li>
-                <li class="mr-1">
+                <li class="sm:mr-1">
+                    <NavLink to="/find" text="Hitta" />
+                </li>
+                <li class="sm:mr-1">
                     <NavLink to="/history" text="Historik" />
                 </li>
-                <li class="mr-1">
+                <li class="sm:mr-1">
                     <NavLink to="/stats" text="Statistik" />
                 </li>
-                <li class="mr-1">
+                <li class="sm:mr-1">
                     <NavLink to="/oldsongs" text="Gamla låtar" />
                 </li>
-                <li class="mr-1">
+                <li class="sm:mr-1">
                     <NavLink to="/randomize" text="Slumpa" />
                 </li>
             </ul>

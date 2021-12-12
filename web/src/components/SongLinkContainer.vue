@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-100 border my-2 px-3 sm:w-96 pb-3">
+    <div class="bg-gray-100 border my-2 px-3 pb-3">
         <p
             class="
                 font-bold
@@ -15,7 +15,7 @@
         >
             {{ label }}
         </p>
-        <div class="grid grid-cols-3">
+        <div :class="['grid', grid_class]">
             <SongLink
                 v-for="(song, i) in songs"
                 :song="song"
@@ -29,7 +29,20 @@
 import SongLink from './SongLink.vue'
 export default {
     name: 'SongLinkContainer',
-    props: ['songs', 'label'],
+    props: {
+        songs: {
+            type: Array,
+            required: true
+        },
+        label: {
+            type: String,
+            required: false
+        },
+        grid_class: {
+            type: String,
+            default: "grid-cols-3"
+        }
+    },
     components: { SongLink }
 }
 </script>

@@ -6,6 +6,7 @@ import Stats from './components/Stats.vue'
 import OldSongs from './components/OldSongs.vue'
 import Randomize from './components/Randomize.vue'
 import Index from './components/Index.vue'
+import FindSong from './components/FindSong.vue'
 
 import Vue from 'vue';
 import Vuex from 'vuex'
@@ -18,6 +19,10 @@ const routes = [{
     path: '/song/:song_title_lookup',
     component: SongDetail,
     props: true
+  },
+  {
+    path: '/find',
+    component: FindSong
   },
   {
     path: '/list',

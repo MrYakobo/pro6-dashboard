@@ -19,7 +19,7 @@
                 Slumpa {{ num }} låtar!
             </button>
         </div>
-        <SongLinkContainer class="mx-auto" :songs="song_titles" />
+        <SongLinkContainer class="mx-auto sm:w-96" :songs="song_titles" />
         <!-- <div class="flex flex-col sm:w-96 mx-auto flex-wrap justify-center">
             <SongLink
                 v-for="song in songs"

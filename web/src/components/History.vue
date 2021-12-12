@@ -1,7 +1,7 @@
 <template>
     <div class="mx-auto justify-center flex flex-wrap">
         <SongLinkContainer
-            class="md:mx-2"
+            class="md:mx-2 sm:w-96"
             :songs="playlist.songs"
             :label="fmt_date(playlist.playlist_date)"
             v-for="playlist in sunday_playlists"
