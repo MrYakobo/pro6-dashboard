@@ -18,7 +18,10 @@
                         :key="tuple[0]"
                     >
                         <td>
-                            <SongLink class="mr-8 w-64" :song="tuple[0]" />
+                            <SongLink
+                                class="mr-8 w-40 sm:w-64"
+                                :song="tuple[0]"
+                            />
                         </td>
                         <td>
                             <time :datetime="iso(tuple[1])">{{

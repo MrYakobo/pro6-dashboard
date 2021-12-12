@@ -47,11 +47,30 @@
                 </li>
             </ul>
             <div class="my-4">
-                <router-view :key="$route.fullPath"></router-view>
+                <transition name="fade" mode="out-in">
+                    <router-view :key="$route.fullPath"></router-view>
+                </transition>
             </div>
         </div>
     </div>
 </template>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+</style>
 
 <script>
 import { mapMutations, mapState } from 'vuex'

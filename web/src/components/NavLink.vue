@@ -5,7 +5,7 @@
             inline-block
             rounded-t
             sm:py-2 sm:px-4 sm:text-base
-            text-xs
+            text-sm
             py-1
             px-2
             border border-blue-200

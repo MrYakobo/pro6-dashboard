@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <div v-if="num == null">Laddar...</div>
+        <div v-if="num == null"></div>
         <div class="flex flex-col mx-auto items-center my-5" v-else>
             <NumInput class="text-center" :num="num" v-model="num" />
             <button
