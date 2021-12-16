@@ -16,6 +16,7 @@
             font-semibold
             bg-white
             overflow-hidden
+            transition-colors
             break-words
         "
     >

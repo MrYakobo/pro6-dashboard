@@ -3,8 +3,8 @@
         <SongLinkContainer
             class="md:mx-2 sm:w-96"
             :songs="playlist.songs"
-            :label="fmt_date(playlist.playlist_date)"
-            v-for="playlist in sunday_playlists"
+            :label="fmt(playlist.playlist_date)"
+            v-for="playlist in selection_playlists"
             :key="playlist.playlist_date"
         />
     </div>
@@ -12,23 +12,35 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import SongLinkContainer from './SongLinkContainer.vue'
-
+import { fmt_date } from '../utils.js'
 
 export default {
-    components: { SongLinkContainer },
-    data() {
-        return {
-            weekdays: ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"],
+    props: {
+        specific_date: {
+            type: String,
+            required: false
         }
     },
+    components: { SongLinkContainer },
     name: 'History',
     computed: {
-        ...mapGetters(['sunday_playlists'])
+        ...mapGetters(['sunday_playlists']),
+        selection_playlists() {
+            /*
+                we have two type of views: list and detail
+                detail view is activated if specific_date is non-empty
+                otherwise, just list all history
+            */
+            if (this.specific_date) {
+                let sel = this.sunday_playlists.find(p => fmt_date(p.playlist_date) == this.specific_date)
+                return [sel]
+            }
+            return this.sunday_playlists
+        },
     },
     methods: {
-        fmt_date(d) {
-            // Söndag V12
-            return this.weekdays[d.getDay()] + " v" + d.getWeek() + " " + d.getFullYear()
+        fmt(d) {
+            return fmt_date(d)
         }
     }
 }

@@ -1,4 +1,4 @@
-import App from './App.vue';
+import App from './App.vue'
 import ListAll from './components/ListAll.vue'
 import History from './components/History.vue'
 import SongDetail from './components/SongDetail.vue'
@@ -8,7 +8,7 @@ import Randomize from './components/Randomize.vue'
 import Index from './components/Index.vue'
 import FindSong from './components/FindSong.vue'
 
-import Vue from 'vue';
+import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 
@@ -29,8 +29,9 @@ const routes = [{
     component: ListAll
   },
   {
-    path: '/history',
-    component: History
+    path: '/history/:specific_date?',
+    component: History,
+    props: true
   },
   {
     path: '/stats',

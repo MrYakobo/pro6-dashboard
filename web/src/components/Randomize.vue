@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <div v-if="num == null"></div>
+        <div v-if="num == null && songs.length > 0"></div>
         <div class="flex flex-col mx-auto items-center my-5" v-else>
             <NumInput class="text-center" :num="num" v-model="num" />
             <button
@@ -11,6 +11,7 @@
                     hover:bg-purple-800
                     p-3
                     rounded
+                    transition-colors
                     white
                     font-bold
                     text-white
@@ -18,15 +19,8 @@
             >
                 Slumpa {{ num }} låtar!
             </button>
+            <SongLinkContainer class="mx-auto sm:w-96" :songs="songs" />
         </div>
-        <SongLinkContainer class="mx-auto sm:w-96" :songs="song_titles" />
-        <!-- <div class="flex flex-col sm:w-96 mx-auto flex-wrap justify-center">
-            <SongLink
-                v-for="song in songs"
-                :key="song.title"
-                :song="song.title"
-            />
-        </div> -->
     </div>
 </template>
 <script>
@@ -46,6 +40,9 @@ function shuffleArray(array) {
         array[i] = array[j]
         array[j] = temp
     }
+}
+function pick_random(arr) {
+    return arr[Math.floor(Math.random() * arr.length)]
 }
 
 export default {
@@ -71,9 +68,6 @@ export default {
     computed: {
         ...mapGetters(['sunday_playlists']),
         ...mapState(['all_songs']),
-        song_titles() {
-            return this.songs.map(s => s.title)
-        },
     },
     mounted() {
         this.init(this.song_ids_b64)
@@ -92,17 +86,39 @@ export default {
             }
         },
         randomize() {
-            let s = this.all_songs.slice().filter(s => s.text.split(/(\n\s*){2,3}/).length > 3)
-            shuffleArray(s)
-            let songs = s.slice(0, this.num)
+            /*
+            First song is from the distribution of FirstSongs
+            Second song is from the distribution of SecondSongs
+            etc
+
+            So iterate up to N, each time only consider the songs in position i
+            */
+
+            let general_distribution = this.all_songs.map(s => s.title)
+            let songs = []
+            for (let i = 0; i < this.num; i++) {
+                let distribution = this.sunday_playlists.map(p => {
+                    if (i < p.songs.length) {
+                        return p.songs[i]
+                    }
+
+                    return pick_random(general_distribution)
+                })
+                songs.push(pick_random(distribution))
+            }
             this.songs = songs
 
-            // push this to the router
-            let song_ids = songs.map(s => this.all_songs.indexOf(s))
-            let path = song_ids.toString()
-            this.$router.replace({
-                path: `/randomize/${song_ids}`
-            })
+            // let s = this.all_songs.slice().filter(s => s.text.split(/(\n\s*){2,3}/).length > 3)
+            // shuffleArray(s)
+            // let songs = s.slice(0, this.num)
+            // this.songs = songs
+
+            // // push this to the router
+            // let song_ids = songs.map(s => this.all_songs.indexOf(s))
+            // let path = song_ids.toString()
+            // this.$router.replace({
+            //     path: `/randomize/${song_ids}`
+            // })
         }
     }
 }

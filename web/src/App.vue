@@ -51,7 +51,7 @@
                 </li>
             </ul>
             <div class="my-4">
-                <transition name="fade" mode="out-in">
+                <transition :name="transition_name" mode="out-in">
                     <router-view :key="$route.fullPath"></router-view>
                 </transition>
             </div>
@@ -89,6 +89,9 @@ export default {
     },
     components: { NavLink },
     computed: {
+        transition_name() {
+            return this.$route.path.split('/')[1] == 'randomize' ? '' : 'fade'
+        },
         ...mapState(['all_songs', 'playlists']),
     },
     methods: {

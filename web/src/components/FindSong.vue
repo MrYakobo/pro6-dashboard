@@ -11,6 +11,7 @@
                 outline-none
                 drop-shadow-md
                 focus:border-green-400
+                transition-colors
             "
             type="search"
             placeholder="Sök: O store Gud"
@@ -62,10 +63,9 @@ export default {
             if (this.query == '')
                 return this.all_songs
 
-            // replace this with elasticsearch but in the browser
-            let r = new RegExp(this.query, 'gi')
+            let r = this.query.toLowerCase()
             return this.all_songs.filter(t => {
-                return t.title.match(r) || t.text.replace("\n", " ").match(r)
+                return t.title.toLowerCase().includes(r) || t.text.replace("\n", " ").toLowerCase().includes(r)
             })
         },
     },

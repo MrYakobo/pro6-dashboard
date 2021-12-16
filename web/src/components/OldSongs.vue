@@ -25,7 +25,7 @@
                         </td>
                         <td>
                             <time :datetime="iso(tuple[1])">{{
-                                fmt_date(tuple[1])
+                                fmt(tuple[1])
                             }}</time>
                         </td>
                     </tr>
@@ -37,6 +37,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import SongLink from './SongLink.vue'
+import { fmt_date } from '../utils'
 
 export default {
     name: 'OldSongs',
@@ -57,9 +58,8 @@ export default {
         }
     },
     methods: {
-        fmt_date(d) {
-            // Söndag V12
-            return "Söndag" + " v" + d.getWeek() + " " + d.getFullYear()
+        fmt(d) {
+            return fmt_date(d)
         },
         iso(d) {
             return d.toISOString()

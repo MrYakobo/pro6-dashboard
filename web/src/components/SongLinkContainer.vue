@@ -1,25 +1,11 @@
 <template>
     <div class="bg-gray-100 border my-2 px-3 pb-3">
-        <p
-            class="
-                font-bold
-                text-sm
-                px-4
-                uppercase
-                rounded
-                bg-emerald-600
-                table
-                text-white
-                mb-2
-            "
-        >
-            {{ label }}
-        </p>
+        <HistoryLink v-if="label" class="px-2" :label="label" />
         <div :class="['grid', grid_class]">
             <SongLink
                 v-for="(song, i) in songs"
                 :song="song"
-                :key="song + label + i"
+                :key="`${song}-${i}`"
                 class="text-sm md:text-base"
             />
         </div>
@@ -27,8 +13,11 @@
 </template>
 <script>
 import SongLink from './SongLink.vue'
+import HistoryLink from './HistoryLink.vue'
+
 export default {
     name: 'SongLinkContainer',
+    components: { SongLink, HistoryLink },
     props: {
         songs: {
             type: Array,
@@ -43,6 +32,5 @@ export default {
             default: "grid-cols-3"
         }
     },
-    components: { SongLink }
 }
 </script>

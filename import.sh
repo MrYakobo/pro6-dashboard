@@ -19,7 +19,7 @@ pro6pl_file="$(realpath "$2")"
 mkdir -p working_dir
 
 echo -n "Generating playlists.json..."
-./pro6pl2json.py "$pro6pl_file" > working_dir/playlists.json
+./pro6pl2json.py "$pro6pl_file" | uconv -x nfkc > working_dir/playlists.json
 echo "Done"
 
 cd working_dir

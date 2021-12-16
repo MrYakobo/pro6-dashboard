@@ -9,6 +9,7 @@
             py-1
             px-2
             border border-blue-200
+            transition-colors
             font-semibold
         "
         :to="to"

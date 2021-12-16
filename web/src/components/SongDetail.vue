@@ -5,40 +5,25 @@
         <div v-if="song == null">Laddar...</div>
         <div v-else class="relative">
             <div class="mx-auto table relative">
-                <button
-                    v-if="history.length > 1"
-                    @click="$router.go(-1)"
-                    class="
-                        hidden
-                        sm:block
-                        w-16
-                        bg-emerald-500
-                        hover:bg-emerald-400
-                        text-white
-                        font-black
-                        py-2
-                        px-4
-                        border-b-4 border-emerald-700
-                        hover:border-emerald-500
-                        rounded
-                        absolute
-                        top-0
-                        left-0
-                        -translate-x-full
-                        translate-y-1/2
-                    "
-                >
-                    ←
-                </button>
+                <BackButton />
                 <div class="my-6">
                     <h1 class="text-3xl text-center sm:w-256 sm:px-6">
                         Lovsång: <span class="font-bold">{{ song.title }}</span>
                     </h1>
                     <p class="text-center text-sm mt-2">
                         spelades senast
-                        <span class="bg-gray-100 text-gray-800 p-1 font-mono">{{
-                            lastplayed
-                        }}</span>
+                        <!-- <HistoryLink class="ml-2" :label="lastplayed" /> -->
+                        <router-link
+                            :to="'/history/' + lastplayed"
+                            class="
+                                bg-gray-100
+                                text-green-800
+                                hover:text-green-500 hover:underline
+                                p-1
+                                font-mono
+                            "
+                            >{{ lastplayed }}</router-link
+                        >
                     </p>
                 </div>
 
@@ -49,7 +34,8 @@
                         p-2
                         border-2
                         overflow-auto
-                        sm:w-80
+                        sm:w-96
+                        text-center
                         mx-auto
                     "
                 >
@@ -57,7 +43,7 @@
                         class="
                             p-3
                             rounded
-                            whitespace-preline
+                            whitespace-pre
                             text-base
                             hover:text-green-500
                             cursor-pointer
@@ -68,16 +54,18 @@
                     ></p>
                 </div>
             </div>
-            <!-- <p class="text-base whitespace-pre overflow-auto">{{ song.text }}</p> -->
-            <!-- </div> -->
         </div>
     </div>
 </template>
 <script>
 import { mapGetters, mapState } from 'vuex'
+import { fmt_date } from '../utils'
+import HistoryLink from './HistoryLink.vue'
+import BackButton from './BackButton.vue'
 
 export default {
     name: 'SongDetail',
+    components: { HistoryLink, BackButton },
     props: {
         song_title_lookup: {
             type: String,
@@ -95,10 +83,7 @@ export default {
             if (playlist == null)
                 return "Okänt"
 
-            return this.fmt_date(playlist.playlist_date)
-        },
-        history() {
-            return window.history
+            return fmt_date(playlist.playlist_date)
         },
         ...mapState(['all_songs']),
         ...mapGetters(['sunday_playlists']),
@@ -122,12 +107,6 @@ export default {
             }
 
             return this.song_object
-        }
-    },
-    methods: {
-        fmt_date(d) {
-            // Söndag V12
-            return "Söndag " + " v" + d.getWeek() + " " + d.getFullYear()
         }
     },
     mounted() {
