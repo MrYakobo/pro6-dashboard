@@ -55,7 +55,7 @@ export default {
         ...mapMutations(['set_all_playlists', 'set_all_songs', 'set_weekday']),
     },
     mounted() {
-        let weekday = localStorage.getItem('weekday') || "5"
+        let weekday = localStorage.getItem('weekday') || "0"
         this.set_weekday(parseInt(weekday))
         fetch("/playlists.json").then((response) => {
             if (response.ok) {

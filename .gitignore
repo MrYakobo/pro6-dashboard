@@ -2,7 +2,6 @@ working_dir
 pro6-to-txt
 *.tgz
 *.tar.gz
-web/*.json
 *.tmp
 *ipynb*
 *.pro6pl
