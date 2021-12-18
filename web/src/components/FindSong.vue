@@ -12,6 +12,7 @@
                 drop-shadow-md
                 focus:border-green-400
                 transition-colors
+                dark:bg-neutral-900
             "
             type="search"
             placeholder="Sök: O store Gud"

@@ -4,10 +4,10 @@
 
 @layer components {
     .router-link.router-link-active {
-        @apply text-white bg-blue-700 hover:bg-blue-800 hover:text-white;
+        @apply text-white bg-blue-700 hover:bg-blue-800 hover:text-white dark:text-blue-400 dark:hover:text-blue-400 dark:hover:bg-neutral-900 dark:bg-gray-900;
     }
 
     .router-link {
-        @apply hover:underline bg-white text-blue-900 hover:text-blue-500;
+        @apply hover:underline bg-white text-blue-900 hover:text-blue-500  dark:text-slate-400 dark:hover:text-gray-300 dark:bg-neutral-800 dark:border-gray-900 dark:no-underline;
     }
 }

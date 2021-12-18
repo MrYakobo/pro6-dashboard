@@ -15,6 +15,10 @@
             border-2 border-gray
             font-semibold
             bg-white
+            dark:bg-gray-800
+            dark:text-gray-200
+            dark:hover:text-green-400
+            dark:border-black
             overflow-hidden
             transition-colors
             break-words

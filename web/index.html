@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="UTF-8" />
@@ -8,13 +8,19 @@
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   <title>Lovsångsbanken</title>
   <style>
-    body {
+    html {
       overflow-y: scroll;
+      height: 100%;
+    }
+
+    body,
+    #app {
+      height: 100%
     }
   </style>
 </head>
 
-<body class="bg-gray-50 ">
+<body class=" dark:bg-black">
   <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
 </body>

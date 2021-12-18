@@ -22,7 +22,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['sunday_playlists']),
+        ...mapGetters(['playlists']),
         ...mapState(['all_songs'])
     },
     methods: {
@@ -32,7 +32,7 @@ export default {
             }, {})
         },
         data_most_common_by_year(year) {
-            let this_year_sundays = this.sunday_playlists.filter(p => p.playlist_date.getFullYear() == year)
+            let this_year_sundays = this.playlists.filter(p => p.playlist_date.getFullYear() == year)
             let all_songs_from_playlists = this_year_sundays.map(a => a.songs).flat()
 
             let remove_single_slides = all_songs_from_playlists.filter(song_title => {

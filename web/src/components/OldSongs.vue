@@ -24,9 +24,26 @@
                             />
                         </td>
                         <td>
-                            <time :datetime="iso(tuple[1])">{{
-                                fmt(tuple[1])
-                            }}</time>
+                            <router-link
+                                class="
+                                    bg-gray-100
+                                    dark:bg-gray-800
+                                    dark:text-gray-50
+                                    dark:no-underline
+                                    dark:hover:text-green-500
+                                    bg-gray-100
+                                    text-gray-700
+                                    hover:text-green-500 hover:underline
+                                    p-2
+                                    rounded-sm
+                                    font-mono
+                                "
+                                :to="'/history/' + fmt(tuple[1])"
+                            >
+                                <time :datetime="iso(tuple[1])">{{
+                                    fmt(tuple[1])
+                                }}</time>
+                            </router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -43,11 +60,11 @@ export default {
     name: 'OldSongs',
     components: { SongLink },
     computed: {
-        ...mapGetters(['sunday_playlists']),
+        ...mapGetters(['playlists']),
         song_date_tuples() {
-            let songs = this.sunday_playlists.map(p => p.songs).flat()
+            let songs = this.playlists.map(p => p.songs).flat()
             let songs_lastused = songs.map(song => {
-                return this.sunday_playlists.find(p => p.songs.indexOf(song) > -1).playlist_date
+                return this.playlists.find(p => p.songs.indexOf(song) > -1).playlist_date
             })
 
             let keys = songs

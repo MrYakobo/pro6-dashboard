@@ -1,11 +1,11 @@
 <template>
     <div class="mx-auto justify-center flex flex-wrap">
         <SongLinkContainer
-            class="md:mx-2 sm:w-96"
+            class="md:mx-1 sm:w-96"
             :songs="playlist.songs"
             :label="fmt(playlist.playlist_date)"
             v-for="playlist in selection_playlists"
-            :key="playlist.playlist_date"
+            :key="`${playlist.playlist_name}${playlist.playlist_date}`"
         />
     </div>
 </template>
@@ -24,7 +24,7 @@ export default {
     components: { SongLinkContainer },
     name: 'History',
     computed: {
-        ...mapGetters(['sunday_playlists']),
+        ...mapGetters(['playlists']),
         selection_playlists() {
             /*
                 we have two type of views: list and detail
@@ -32,10 +32,10 @@ export default {
                 otherwise, just list all history
             */
             if (this.specific_date) {
-                let sel = this.sunday_playlists.find(p => fmt_date(p.playlist_date) == this.specific_date)
+                let sel = this.playlists.find(p => fmt_date(p.playlist_date) == this.specific_date)
                 return [sel]
             }
-            return this.sunday_playlists
+            return this.playlists
         },
     },
     methods: {

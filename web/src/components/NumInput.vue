@@ -14,6 +14,7 @@
             <button
                 @click="inc(-1)"
                 class="
+                    dark:bg-gray-800 dark:text-gray-100
                     bg-gray-300
                     text-gray-600
                     hover:text-gray-700 hover:bg-gray-400
@@ -37,6 +38,7 @@
                     text-center
                     w-full
                     bg-gray-500
+                    dark:bg-gray-700
                     font-semibold
                     text-md
                     hover:text-white
@@ -52,6 +54,7 @@
             <button
                 @click="inc(+1)"
                 class="
+                    dark:bg-gray-800 dark:text-gray-100
                     bg-gray-200
                     text-gray-600
                     hover:text-gray-700 hover:bg-gray-400

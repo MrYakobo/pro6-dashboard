@@ -1,55 +1,12 @@
 <template>
-    <div id="app" class="font-sans p-3 sm:p-4 rounded-t">
+    <div
+        id="app"
+        class="font-sans p-3 sm:p-4 bg-gray-50 dark:text-gray-50 dark:bg-black"
+    >
         <div v-if="error != null">ERROR: {{ error }}</div>
         <div v-else-if="all_songs.length == 0">Laddar...</div>
         <div v-else>
-            <ul
-                class="
-                    z-10
-                    sticky
-                    top-0
-                    bg-white
-                    rounded-lg
-                    py-2
-                    flex flex-wrap
-                    border-b border-blue-200
-                    justify-center
-                    text-white
-                "
-            >
-                <li
-                    class="
-                        flex
-                        items-center
-                        justify-center
-                        mx-auto
-                        md:mx-1 md:pr-5 md:mb-0
-                        mb-2
-                        w-full
-                        text-center
-                        md:w-auto
-                    "
-                >
-                    <router-link to="/find"
-                        ><img class="h-10 w-10" src="/public/favicon.png"
-                    /></router-link>
-                </li>
-                <li class="sm:mr-1">
-                    <NavLink to="/find" text="Hitta" />
-                </li>
-                <li class="sm:mr-1">
-                    <NavLink to="/history" text="Historik" />
-                </li>
-                <li class="sm:mr-1">
-                    <NavLink to="/stats" text="Statistik" />
-                </li>
-                <li class="sm:mr-1">
-                    <NavLink to="/oldsongs" text="Gamla låtar" />
-                </li>
-                <li class="sm:mr-1">
-                    <NavLink to="/randomize" text="Slumpa" />
-                </li>
-            </ul>
+            <Menu />
             <div class="my-4">
                 <transition :name="transition_name" mode="out-in">
                     <router-view :key="$route.fullPath"></router-view>
@@ -78,7 +35,7 @@ input[type="number"] {
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-import NavLink from './components/NavLink.vue'
+import Menu from './components/Menu.vue'
 
 export default {
     name: 'App',
@@ -87,21 +44,19 @@ export default {
             error: null,
         }
     },
-    components: { NavLink },
+    components: { Menu },
     computed: {
         transition_name() {
             return this.$route.path.split('/')[1] == 'randomize' ? '' : 'fade'
         },
-        ...mapState(['all_songs', 'playlists']),
+        ...mapState(['all_songs']),
     },
     methods: {
-        ...mapMutations(['set_playlists', 'set_all_songs']),
+        ...mapMutations(['set_all_playlists', 'set_all_songs', 'set_weekday']),
     },
     mounted() {
-        Date.prototype.getWeek = function () {
-            var onejan = new Date(this.getFullYear(), 0, 1)
-            return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7)
-        }
+        let weekday = localStorage.getItem('weekday') || "5"
+        this.set_weekday(parseInt(weekday))
         fetch("/playlists.json").then((response) => {
             if (response.ok) {
                 return response.json()
@@ -111,11 +66,11 @@ export default {
             }
         })
             .then(a => {
-                let playlists = a.map(p => {
+                let all_playlists = a.map(p => {
                     p.playlist_date = new Date(p.playlist_date)
                     return p
                 })
-                this.set_playlists(playlists)
+                this.set_all_playlists(all_playlists)
             })
             .catch((e) => {
                 this.error = e

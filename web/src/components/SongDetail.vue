@@ -4,7 +4,16 @@
         <!-- or renders what is passed directly -->
         <div v-if="song == null">Laddar...</div>
         <div v-else class="relative">
-            <div class="mx-auto table relative">
+            <div
+                class="
+                    mx-auto
+                    table
+                    relative
+                    bg-gray-50
+                    dark:bg-transparent
+                    rounded
+                "
+            >
                 <BackButton />
                 <div class="my-6">
                     <h1 class="text-3xl text-center sm:w-256 sm:px-6">
@@ -17,6 +26,10 @@
                             :to="'/history/' + lastplayed"
                             class="
                                 bg-gray-100
+                                dark:bg-gray-800
+                                dark:text-green-400
+                                dark:no-underline
+                                dark:hover:text-green-500
                                 text-green-800
                                 hover:text-green-500 hover:underline
                                 p-1
@@ -33,6 +46,8 @@
                         h-72
                         p-2
                         border-2
+                        dark:border-gray-900 dark:bg-gray-900
+                        rounded-md
                         overflow-auto
                         sm:w-96
                         text-center
@@ -79,14 +94,14 @@ export default {
     computed: {
         lastplayed() {
             let title = this.song.title
-            let playlist = this.sunday_playlists.find(p => p.songs.includes(title))
+            let playlist = this.playlists.find(p => p.songs.includes(title))
             if (playlist == null)
                 return "Okänt"
 
             return fmt_date(playlist.playlist_date)
         },
         ...mapState(['all_songs']),
-        ...mapGetters(['sunday_playlists']),
+        ...mapGetters(['playlists']),
         slides() {
             let splitted = this.song.text.split(/(\n\s*){2,3}/)
             return splitted.map(s => s.trim()).filter(s => s != '')

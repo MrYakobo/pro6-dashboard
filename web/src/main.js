@@ -53,26 +53,42 @@ const routes = [{
 ]
 
 const router = new VueRouter({
-  routes,
+  routes
 })
 
 const store = new Vuex.Store({
   state: {
     all_songs: [],
-    playlists: []
+    all_playlists: [],
+    weekday: -1
   },
   getters: {
-    sunday_playlists(state) {
-      return state.playlists.filter(t => t.playlist_date.getDay() == 0).sort((b, a) => a
+    playlists(state) {
+      return state.all_playlists.filter(t => t.playlist_date.getDay() == state.weekday).sort((b, a) => a
         .playlist_date - b.playlist_date)
+    },
+    is_sunday(state) {
+      return state.weekday == 0
+    },
+    is_friday(state) {
+      return state.weekday == 5
     }
   },
   mutations: {
     set_all_songs(state, all_songs) {
       state.all_songs = all_songs
     },
-    set_playlists(state, playlists) {
-      state.playlists = playlists
+    set_all_playlists(state, all_playlists) {
+      state.all_playlists = all_playlists
+    },
+    set_weekday(state, weekday) {
+      state.weekday = weekday
+      localStorage.setItem('weekday', weekday)
+
+      if (weekday == 5)
+        window.document.documentElement.classList.add('dark')
+      else
+        window.document.documentElement.classList.remove('dark')
     }
   }
 })

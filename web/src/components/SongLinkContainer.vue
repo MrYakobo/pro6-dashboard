@@ -1,7 +1,19 @@
 <template>
-    <div class="bg-gray-100 border my-2 px-3 pb-3">
-        <HistoryLink v-if="label" class="px-2" :label="label" />
-        <div :class="['grid', grid_class]">
+    <div
+        class="
+            dark:bg-gray-900
+            bg-gray-100
+            border
+            dark:border-neutral-900
+            my-1
+            px-3
+            pb-3
+            rounded-md
+            py-3
+        "
+    >
+        <HistoryLink v-if="label" class="ml-1 px-2" :label="label" />
+        <div :class="['mt-1 grid', grid_class]">
             <SongLink
                 v-for="(song, i) in songs"
                 :song="song"

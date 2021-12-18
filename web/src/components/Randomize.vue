@@ -8,6 +8,7 @@
                 class="
                     my-2
                     bg-purple-500
+                    dark:bg-purple-800
                     hover:bg-purple-800
                     p-3
                     rounded
@@ -66,7 +67,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['sunday_playlists']),
+        ...mapGetters(['playlists']),
         ...mapState(['all_songs']),
     },
     mounted() {
@@ -97,7 +98,7 @@ export default {
             let general_distribution = this.all_songs.map(s => s.title)
             let songs = []
             for (let i = 0; i < this.num; i++) {
-                let distribution = this.sunday_playlists.map(p => {
+                let distribution = this.playlists.map(p => {
                     if (i < p.songs.length) {
                         return p.songs[i]
                     }
