@@ -7,12 +7,15 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "chart.js": "^4.2.0",
+    "lodash.debounce": "^4.0.8",
     "vite-plugin-vue2": "^1.4.0",
     "vue": "^2.6.12",
     "vue-router": "^3.5.3",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@vue/runtime-dom": "^3.2.47",
     "autoprefixer": "^10.4.0",
     "postcss": "^8.4.4",
     "tailwindcss": "^3.0.1",
