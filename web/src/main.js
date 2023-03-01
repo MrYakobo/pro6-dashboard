@@ -93,6 +93,7 @@ const store = new Vuex.Store({
   }
 })
 
+import 'virtual:windi.css'
 import './index.css'
 
 new Vue({
