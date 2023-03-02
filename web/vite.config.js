@@ -4,4 +4,5 @@ import WindiCSS from 'vite-plugin-windicss'
 
 module.exports = {
   plugins: [createVuePlugin(), WindiCSS()],
+  base: ''
 };

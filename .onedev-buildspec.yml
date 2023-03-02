@@ -1,0 +1,42 @@
+version: 20
+jobs:
+- name: build and deploy site
+  jobExecutor: tjenis
+  steps:
+  - !CheckoutStep
+    name: checkout code
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: install deps
+    runInContainer: true
+    image: node:19.7
+    interpreter: !DefaultInterpreter
+      commands:
+      - cd web
+      - npm ci
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: run build
+    runInContainer: true
+    image: node:19.7
+    interpreter: !ShellInterpreter
+      shell: bash
+      commands:
+      - cd web
+      - npm run build
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !PublishSiteStep
+    projectPath: Kryckan
+    name: deploy site
+    sourcePath: web/dist
+    artifacts: '* assets/*'
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 3600
