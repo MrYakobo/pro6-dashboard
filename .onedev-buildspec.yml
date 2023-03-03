@@ -28,15 +28,17 @@ jobs:
       commands:
       - cd web
       - npm run build
-      - mkdir -p data
-      - cp ../real-world-data/*.json data
+      - mkdir -p dist/data
+      - cp ../real-world-data/*.json dist/data
+      - ls -l
+      - pwd
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PublishSiteStep
     projectPath: lovsang
     name: deploy site
     sourcePath: web/dist
-    artifacts: '* assets/*'
+    artifacts: '* assets/* data/*'
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   retryCondition: never
   maxRetries: 3
