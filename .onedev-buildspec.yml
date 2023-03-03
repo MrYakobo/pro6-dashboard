@@ -31,7 +31,7 @@ jobs:
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PublishSiteStep
-    projectPath: Kryckan
+    projectPath: lovsang
     name: deploy site
     sourcePath: web/dist
     artifacts: '* assets/*'
