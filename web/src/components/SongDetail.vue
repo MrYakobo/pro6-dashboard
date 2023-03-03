@@ -103,7 +103,7 @@ export default {
         ...mapState(['all_songs']),
         ...mapGetters(['playlists']),
         slides() {
-            let splitted = this.song.text.split(/(\n\s*){2,3}/)
+            let splitted = this.song.text
             return splitted.map(s => s.trim()).filter(s => s != '')
         },
         song() {

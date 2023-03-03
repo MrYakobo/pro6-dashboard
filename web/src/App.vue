@@ -57,7 +57,7 @@ export default {
     mounted() {
         let weekday = localStorage.getItem('weekday') || "0"
         this.set_weekday(parseInt(weekday))
-        fetch("/playlists.json").then((response) => {
+        fetch("data/playlists.json").then((response) => {
             if (response.ok) {
                 return response.json()
             } else {
@@ -75,7 +75,7 @@ export default {
             .catch((e) => {
                 this.error = e
             })
-        fetch("/songs.json").then((response) => {
+        fetch("data/songs.json").then((response) => {
             if (response.ok) {
                 return response.json()
             } else {
@@ -84,10 +84,7 @@ export default {
             }
         })
             .then(a => {
-                let all_songs = a.map(t => {
-                    t.text = t.text.trim()
-                    return t
-                }).filter(t => t.text.length > 0)
+                let all_songs = a.filter(t => t.text.length > 0)
                 this.set_all_songs(all_songs)
             })
             .catch((e) => {

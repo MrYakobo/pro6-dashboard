@@ -40,7 +40,7 @@ export default {
                 if (song == null)
                     return false
 
-                let splitted = song.text.split(/(\n\s*){2,3}/)
+                let splitted = song.text
                 return splitted.length > 3
             })
             let counts = this.value_counts(remove_single_slides)

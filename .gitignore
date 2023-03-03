@@ -1,7 +1,1 @@
-working_dir
-pro6-to-txt
-*.tgz
-*.tar.gz
-*.tmp
-*ipynb*
-*.pro6pl
+ignore
