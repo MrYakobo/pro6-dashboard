@@ -20,7 +20,7 @@ jobs:
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
-    name: run build
+    name: run build and copy json files
     runInContainer: true
     image: node:19.7
     interpreter: !ShellInterpreter
@@ -28,6 +28,8 @@ jobs:
       commands:
       - cd web
       - npm run build
+      - mkdir -p data
+      - cp ../real-world-data/*.json data
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PublishSiteStep

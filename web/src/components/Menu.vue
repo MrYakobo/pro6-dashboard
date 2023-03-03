@@ -90,14 +90,17 @@
 import NavLink from './NavLink.vue'
 import { mapState, mapMutations, mapGetters } from 'vuex'
 
+import sunday_img from "../img/favicon.png"
+import friday_img from "../img/bg.png"
+
 export default {
     name: 'Menu',
     components: { NavLink },
     data() {
         return {
             show_overlay: true,
-            sunday_img: '/favicon.png',
-            friday_img: '/bg.png'
+            sunday_img,
+            friday_img
         }
     },
     computed: {
