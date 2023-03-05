@@ -1,11 +1,9 @@
 import App from './App.vue'
-import ListAll from './components/ListAll.vue'
 import History from './components/History.vue'
 import SongDetail from './components/SongDetail.vue'
 import Stats from './components/Stats.vue'
 import OldSongs from './components/OldSongs.vue'
 import Randomize from './components/Randomize.vue'
-import Index from './components/Index.vue'
 import FindSong from './components/FindSong.vue'
 
 import Vue from 'vue'
@@ -24,10 +22,6 @@ const routes = [
     {
         path: '/find',
         component: FindSong
-    },
-    {
-        path: '/list',
-        component: ListAll
     },
     {
         path: '/history/:specific_date?',
@@ -53,8 +47,13 @@ const routes = [
     }
 ]
 
+const scrollBehavior = (to, from, savedPosition) => {
+    return savedPosition || { top: 0, left: 0 }
+}
+
 const router = new VueRouter({
-    routes
+    routes,
+    scrollBehavior
 })
 
 const store = new Vuex.Store({
