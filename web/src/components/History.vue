@@ -1,14 +1,21 @@
 <template>
-    <div class="mx-auto justify-center flex flex-wrap">
+    <div class="mx-auto flex flex-nowrap overflow-x-auto snap-x snap-mandatory scroll-auto scroll-touch snap-normal">
         <SongLinkContainer
-            class="md:mx-1 sm:w-96"
+            class="flex-shrink-0 snap-center relative"
             :songs="playlist.songs"
             :label="fmt(playlist.playlist_date)"
-            v-for="playlist in selection_playlists"
-            :key="`${playlist.playlist_name}${playlist.playlist_date}`"
+            v-for="playlist in playlists"
+            :key="fmt(playlist.playlist_date)"
+            :ref="fmt(playlist.playlist_date)"
+            :animation_class="scroll_class(fmt(playlist.playlist_date))"
         />
     </div>
 </template>
+<style>
+.scroll-touch {
+-webkit-overflow-scrolling: touch
+}
+</style>
 <script>
 import { mapGetters, mapState } from 'vuex'
 import SongLinkContainer from './SongLinkContainer.vue'
@@ -23,22 +30,21 @@ export default {
     },
     components: { SongLinkContainer },
     name: 'History',
+    mounted(){
+        if (this.specific_date) {
+            this.$refs[this.specific_date][0].$el.scrollIntoView({ behavior: "auto", block: "center", inline: "center" })
+        }
+    },
     computed: {
         ...mapGetters(['playlists']),
-        selection_playlists() {
-            /*
-                we have two type of views: list and detail
-                detail view is activated if specific_date is non-empty
-                otherwise, just list all history
-            */
-            if (this.specific_date) {
-                let sel = this.playlists.find(p => fmt_date(p.playlist_date) == this.specific_date)
-                return [sel]
-            }
-            return this.playlists
-        },
     },
     methods: {
+        scroll_class(ref){
+            if (this.specific_date == ref) {
+                return "animate-yellow2white"
+            }
+            return ""
+        },
         fmt(d) {
             return fmt_date(d)
         }

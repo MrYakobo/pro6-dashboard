@@ -1,31 +1,28 @@
 <template>
+    <div class="
+        overflow-hidden
+        break-words
+    ">
     <router-link
         :title="song"
         :to="link"
         class="
-            flex
-            justify-center
-            items-center
-            text-center text-gray-700
-            hover:text-green-400
-            p-2
-            rounded-md
+            text-base
+            sm:text-md
             cursor-pointer
+            font-bold
+            text-gray-700
+            hover:text-green-400
             hover:underline
-            border-2 border-gray
-            font-semibold
-            bg-white
-            dark:bg-gray-800
-            dark:text-gray-200
             dark:hover:text-green-400
-            dark:border-black
-            overflow-hidden
-            transition-colors
-            break-words
+            dark:text-gray-200
+            dark:bg-gray-800
         "
     >
-        {{ truncate(song) }}
+        {{ song }}
     </router-link>
+    <p class="text-gray-400" v-html="categories"></p>
+</div>
 </template>
 <script>
 export default {
@@ -37,6 +34,14 @@ export default {
         }
     },
     computed: {
+        categories(){
+            let categories = ["lovsång"]
+            if (this.song.toLowerCase().includes("sfb")) {
+                categories = ["bibelord"]
+            }
+
+            return categories.join("&bull;")
+        },
         link() {
             return '/song/' + encodeURIComponent(this.song)
         }

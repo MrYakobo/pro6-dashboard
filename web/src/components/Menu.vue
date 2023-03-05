@@ -67,7 +67,7 @@
             <NavLink to="/stats" text="Statistik" />
         </li>
         <li class="sm:mr-1">
-            <NavLink to="/oldsongs" text="Gamla låtar" />
+            <NavLink to="/oldsongs" text="Gamla sånger" />
         </li>
         <li class="sm:mr-1">
             <NavLink to="/randomize" text="Slumpa" />

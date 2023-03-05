@@ -1,11 +1,8 @@
 <template>
     <div class="text-center">
-        <!-- <h1 class="font-bold text-xl my-6">
-            Dessa sånger har vi inte kört på ett tag
-        </h1> -->
-        <div class="inline-block sm:px-4 overflow-auto">
-            <table class="text-left px-5">
-                <thead>
+        <div class="inline-block px-3 sm:px-4 h-xl sm:h-screen-sm overflow-auto border-2 border-gray-200 rounded-md shadow-lg">
+            <table class="text-left px-5 my-4">
+                <thead class="text-base">
                     <tr>
                         <th class="border-b">Lovsång</th>
                         <th class="border-b">Spelades senast</th>
@@ -13,37 +10,19 @@
                 </thead>
                 <tbody>
                     <tr
-                        class="h-12"
+                        class=""
                         v-for="tuple in song_date_tuples"
                         :key="tuple[0]"
                     >
                         <td>
                             <SongLink
-                                class="mr-8 w-40 sm:w-64"
+                                class="mr-8 w-40 sm:w-64 my-2"
                                 :song="tuple[0]"
                             />
                         </td>
                         <td>
-                            <router-link
-                                class="
-                                    bg-gray-100
-                                    dark:bg-gray-800
-                                    dark:text-gray-50
-                                    dark:no-underline
-                                    dark:hover:text-green-500
-                                    bg-gray-100
-                                    text-gray-700
-                                    hover:text-green-500 hover:underline
-                                    p-2
-                                    rounded-sm
-                                    font-mono
-                                "
-                                :to="'/history/' + fmt(tuple[1])"
-                            >
-                                <time :datetime="iso(tuple[1])">{{
-                                    fmt(tuple[1])
-                                }}</time>
-                            </router-link>
+                            <InlineHistoryLink class="text-base" :label="fmt(tuple[1])" />
+                            <p>&nbsp;</p>
                         </td>
                     </tr>
                 </tbody>
@@ -54,11 +33,12 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import SongLink from './SongLink.vue'
+import InlineHistoryLink from './InlineHistoryLink.vue'
 import { fmt_date } from '../utils'
 
 export default {
     name: 'OldSongs',
-    components: { SongLink },
+    components: { SongLink, InlineHistoryLink },
     computed: {
         ...mapGetters(['playlists']),
         song_date_tuples() {

@@ -19,16 +19,8 @@
             @input="debounceInput"
         />
         <template v-if="query.length > 0">
-            <p>
-                Hittade
-                <span class="bg-gray-100 text-gray-800 p-1 font-mono">{{
-                    songs.length
-                }}</span>
-                lovsånger
-            </p>
             <SongLinkContainer
-                class="sm:w-256 px-5"
-                grid_class="grid-cols-3 sm:grid-cols-4"
+                class="text-left h-md sm:h-xl"
                 :songs="songs"
             />
         </template>
@@ -66,7 +58,7 @@ export default {
 
             let r = this.query.toLowerCase()
             return this.all_songs.filter(t => {
-                return t.title.toLowerCase().includes(r) || t.text.replace("\n", " ").toLowerCase().includes(r)
+                return t.title.toLowerCase().includes(r) || t.text.some(s => s.replace("\n", " ").toLowerCase().includes(r))
             })
         },
     },

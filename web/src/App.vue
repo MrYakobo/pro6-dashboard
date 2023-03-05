@@ -1,13 +1,12 @@
 <template>
     <div
         id="app"
-        class="font-sans p-3 sm:p-4 bg-gray-50 dark:text-gray-50 dark:bg-black"
-    >
+        class="font-sans p-4 md:p-0 dark:text-gray-50 dark:bg-black">
         <div v-if="error != null">ERROR: {{ error }}</div>
         <div v-else-if="all_songs.length == 0">Laddar...</div>
-        <div v-else>
+        <div v-else class="flex flex-col h-full sm:flex-none">
             <Menu />
-            <div class="my-4">
+            <div class="mt-4 flex-1">
                 <transition :name="transition_name" mode="out-in">
                     <router-view :key="$route.fullPath"></router-view>
                 </transition>
@@ -20,16 +19,24 @@
 .fade-leave-active {
     transition: opacity 0.1s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active below version 2.1.8 */
+    {
     opacity: 0;
 }
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 input[type="number"] {
-    -moz-appearance: textfield; /* Firefox */
+    -moz-appearance: textfield;
+    /* Firefox */
 }
 </style>
 

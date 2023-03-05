@@ -1,26 +1,16 @@
 <template>
-    <div
-        class="
-            dark:bg-gray-900
-            bg-gray-100
-            border
-            dark:border-neutral-900
-            my-1
-            px-3
-            pb-3
-            rounded-md
-            py-3
-        "
-    >
-        <HistoryLink v-if="label" class="ml-1 px-2" :label="label" />
-        <div :class="['mt-1 grid', grid_class]">
-            <SongLink
-                v-for="(song, i) in songs"
-                :song="song"
-                :key="`${song}-${i}`"
-                class="text-sm md:text-base"
-            />
-        </div>
+    <div :class="['sm:w-96 w-11/12 mx-2 dark:bg-gray-900 bg-white border border-stone-300 shadow-md dark:border-neutral-900 my-1 px-3 rounded-md overflow-y-auto h-lg sm:h-screen-sm',
+        animation_class]
+    ">
+    <div :class="['bg-white dark:bg-gray-900 p-2 top-0 sticky border-b-2', animation_class]">
+        <HistoryLink v-if="label" :label="label" />
+        <p class="text-center">{{ songs.length }} sånger</p>
+    </div>
+        <SongLink
+            v-for="(song, i) in songs"
+            :song="song"
+            :key="`${song}-${i}`"
+            class="text-sm md:text-base mx-4 my-4" />
     </div>
 </template>
 <script>
@@ -39,9 +29,9 @@ export default {
             type: String,
             required: false
         },
-        grid_class: {
+        animation_class: {
             type: String,
-            default: "grid-cols-3"
+            default: ''
         }
     },
 }

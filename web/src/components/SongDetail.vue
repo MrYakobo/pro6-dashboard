@@ -9,63 +9,50 @@
                     mx-auto
                     table
                     relative
-                    bg-gray-50
-                    dark:bg-transparent
                     rounded
                 "
             >
                 <BackButton />
                 <div class="my-6">
                     <h1 class="text-3xl text-center sm:w-256 sm:px-6">
-                        Lovsång: <span class="font-bold">{{ song.title }}</span>
+                        <span class="font-black">{{ song.title }}</span>
                     </h1>
-                    <p class="text-center text-sm mt-2">
+                    <p class="text-center mt-2" v-if="lastplayed != 'Okänt'">
                         spelades senast
                         <!-- <HistoryLink class="ml-2" :label="lastplayed" /> -->
-                        <router-link
-                            :to="'/history/' + lastplayed"
-                            class="
-                                bg-gray-100
-                                dark:bg-gray-800
-                                dark:text-green-400
-                                dark:no-underline
-                                dark:hover:text-green-500
-                                text-green-800
-                                hover:text-green-500 hover:underline
-                                p-1
-                                font-mono
-                            "
-                            >{{ lastplayed }}</router-link
-                        >
+                        <InlineHistoryLink :label="lastplayed" />
                     </p>
                 </div>
 
                 <div
                     class="
                         sm:h-96
-                        h-72
-                        p-2
-                        border-2
+                        h-md
+                        py-2
+                        px-4
+                        shadow-lg
                         dark:border-gray-900 dark:bg-gray-900
                         rounded-md
-                        overflow-auto
                         sm:w-96
-                        text-center
                         mx-auto
+                        overflow-y-auto
+                        bg-white
                     "
                 >
                     <p
                         class="
-                            p-3
+                            my-3
                             rounded
-                            whitespace-pre
-                            text-base
-                            hover:text-green-500
+                            text-lg
+                            text-gray-500
+                            dark:text-gray-300
+                            hover:text-black
+                            dark:hover:text-white
                             cursor-pointer
                         "
                         v-for="slide in slides"
                         :key="slide"
-                        v-text="slide"
+                        v-html="slide"
                     ></p>
                 </div>
             </div>
@@ -76,11 +63,12 @@
 import { mapGetters, mapState } from 'vuex'
 import { fmt_date } from '../utils'
 import HistoryLink from './HistoryLink.vue'
+import InlineHistoryLink from './InlineHistoryLink.vue'
 import BackButton from './BackButton.vue'
 
 export default {
     name: 'SongDetail',
-    components: { HistoryLink, BackButton },
+    components: { HistoryLink, BackButton, InlineHistoryLink },
     props: {
         song_title_lookup: {
             type: String,
@@ -104,7 +92,7 @@ export default {
         ...mapGetters(['playlists']),
         slides() {
             let splitted = this.song.text
-            return splitted.map(s => s.trim()).filter(s => s != '')
+            return splitted.map(s => s.trim().replace("\n","<br>")).filter(s => s != '')
         },
         song() {
             if (this.song_title_lookup) {

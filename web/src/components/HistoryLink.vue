@@ -1,25 +1,22 @@
 <template>
     <router-link
         class="
-            font-bold
-            text-sm
+            font-black
+            text-center
+            capitalize
+            text-2xl
+            table
+            mx-auto
             px-1
             py-1
             rounded-lg
-            bg-emerald-600
-            dark:bg-zinc-800
-            dark:text-emerald-400
             dark:no-underline
-            dark:hover:text-emerald-500
-            text-white
-            mb-2
-            underline
-            decoration-3 decoration-transparent
-            transition-all
-            hover:decoration-white
+            text-black
+            hover:underline
+            dark:text-gray-100
+            dark:hover:text-green-500
         "
-        :to="'/history/' + label"
-    >
+        :to="'/history/' + label">
         {{ label }}
     </router-link>
 </template>
