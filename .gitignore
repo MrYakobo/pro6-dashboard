@@ -1,3 +1,4 @@
 ignore
 date-swaps.json
 venv
+.env
