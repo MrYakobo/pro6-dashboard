@@ -20,7 +20,7 @@
             >
                 Slumpa {{ num }} låtar!
             </button>
-            <SongLinkContainer class="mx-auto sm:w-96" :songs="songs" />
+            <SongLinkContainer class="mx-auto sm:w-96 sm:h-lg" :songs="songs" />
         </div>
     </div>
 </template>
