@@ -7,9 +7,9 @@
             bg-white
             dark:bg-neutral-900
             rounded-lg
-            py-2
+            sm:py-2
             flex flex-wrap
-            border-b border-blue-200
+            sm:border-b border-blue-200
             dark:border-0
             justify-center
             text-white
@@ -33,7 +33,6 @@
                 @click="toggle_bg_mode"
                 @mouseleave="mouseleave"
             >
-                <!-- <transition name="logo" mode="out-in"> -->
                 <img key="1" class="h-10 w-10" :src="curr_img" />
                 <img
                     v-if="show_overlay"
@@ -54,7 +53,6 @@
                     "
                     :src="switch_img"
                 />
-                <!-- </transition> -->
             </button>
         </li>
         <li class="sm:mr-1">
@@ -67,7 +65,7 @@
             <NavLink to="/stats" text="Statistik" />
         </li>
         <li class="sm:mr-1">
-            <NavLink to="/oldsongs" text="Gamla sånger" />
+            <NavLink to="/oldsongs" text="Gamla" />
         </li>
         <li class="sm:mr-1">
             <NavLink to="/randomize" text="Slumpa" />

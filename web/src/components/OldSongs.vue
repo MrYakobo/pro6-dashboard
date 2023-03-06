@@ -16,7 +16,7 @@
                     >
                         <td>
                             <SongLink
-                                class="mr-8 w-40 sm:w-64 my-2"
+                                class="sm:mr-8 w-40 sm:w-64 my-2"
                                 :song="tuple[0]"
                             />
                         </td>
@@ -50,7 +50,7 @@ export default {
             let keys = songs
             let values = songs_lastused
             let obj = Object.fromEntries(keys.map((_, i) => [keys[i], values[i]]))
-            let sortedByPlaylistDate = Object.entries(obj).sort(([, a], [, b]) => a - b).slice(0, 100)
+            let sortedByPlaylistDate = Object.entries(obj).sort(([, a], [, b]) => a - b).slice(0, 25)
             return sortedByPlaylistDate
         }
     },
