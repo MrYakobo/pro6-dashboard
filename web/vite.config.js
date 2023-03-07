@@ -1,8 +1,7 @@
-const { createVuePlugin } = require('vite-plugin-vue2');
-import WindiCSS from 'vite-plugin-windicss'
-
+const { createVuePlugin } = require("vite-plugin-vue2")
+import WindiCSS from "vite-plugin-windicss"
 
 module.exports = {
-  plugins: [createVuePlugin(), WindiCSS()],
-  base: ''
-};
+    plugins: [createVuePlugin(), WindiCSS()],
+    base: "",
+}

@@ -18,7 +18,7 @@
 </template>
 <script>
 export default {
-    name: 'NavLink',
-    props: ['to', 'text']
+    name: "NavLink",
+    props: ["to", "text"],
 }
 </script>

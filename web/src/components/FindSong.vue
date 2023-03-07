@@ -33,40 +33,44 @@
     </div>
 </template>
 <script>
-import { mapState } from 'vuex'
-import debounce from 'lodash.debounce'
+import { mapState } from "vuex"
+import debounce from "lodash.debounce"
 
-import SongLinkContainer from './SongLinkContainer.vue'
+import SongLinkContainer from "./SongLinkContainer.vue"
 
 export default {
-    name: 'FindSong',
+    name: "FindSong",
     data() {
         return {
-            query: '',
+            query: "",
         }
     },
     computed: {
-        ...mapState(['all_songs']),
+        ...mapState(["all_songs"]),
         songs() {
             let tmp = this.songs_query.slice()
             tmp.sort((a, b) => a.title.localeCompare(b.title))
-            return tmp.map(s => s.title)
+            return tmp.map((s) => s.title)
         },
         songs_query() {
-            if (this.query == '')
-                return this.all_songs
+            if (this.query == "") return this.all_songs
 
             let r = this.query.toLowerCase()
-            return this.all_songs.filter(t => {
-                return t.title.toLowerCase().includes(r) || t.text.some(s => s.replace("\n", " ").toLowerCase().includes(r))
+            return this.all_songs.filter((t) => {
+                return (
+                    t.title.toLowerCase().includes(r) ||
+                    t.text.some((s) =>
+                        s.replace("\n", " ").toLowerCase().includes(r)
+                    )
+                )
             })
         },
     },
     methods: {
         debounceInput: debounce(function debounce(e) {
             this.query = e.target.value
-        }, 400)
+        }, 400),
     },
-    components: { SongLinkContainer }
+    components: { SongLinkContainer },
 }
 </script>

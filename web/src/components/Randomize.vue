@@ -20,14 +20,17 @@
             >
                 Slumpa {{ num }} låtar!
             </button>
-            <SongLinkContainer class="mx-auto sm:w-96 sm:h-lg" :songs="songs" />
+            <SongLinkContainer
+                class="mx-auto sm:w-96 sm:h-lg"
+                :songs="songs"
+            />
         </div>
     </div>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
-import SongLinkContainer from './SongLinkContainer.vue'
-import NumInput from './NumInput.vue'
+import { mapState, mapGetters } from "vuex"
+import SongLinkContainer from "./SongLinkContainer.vue"
+import NumInput from "./NumInput.vue"
 
 // TODO: Add seed here and push to router property
 // so that a certain randomization can be bookmarked
@@ -47,28 +50,28 @@ function pick_random(arr) {
 }
 
 export default {
-    name: 'Randomize',
+    name: "Randomize",
     props: {
         song_ids_b64: {
             type: String,
-            required: false
-        }
+            required: false,
+        },
     },
     components: { SongLinkContainer, NumInput },
     data() {
         return {
             num: null,
-            songs: []
+            songs: [],
         }
     },
     watch: {
         "$route.params.song_ids_b64"(val) {
             this.init(val)
-        }
+        },
     },
     computed: {
-        ...mapGetters(['playlists']),
-        ...mapState(['all_songs']),
+        ...mapGetters(["playlists"]),
+        ...mapState(["all_songs"]),
     },
     mounted() {
         this.init(this.song_ids_b64)
@@ -76,8 +79,12 @@ export default {
     methods: {
         init(song_ids_b64) {
             if (song_ids_b64) {
-                let song_ids = song_ids_b64.split(",").map(i => parseInt(i))
-                let selection = this.all_songs.filter((_, i) => song_ids.includes(i))
+                let song_ids = song_ids_b64
+                    .split(",")
+                    .map((i) => parseInt(i))
+                let selection = this.all_songs.filter((_, i) =>
+                    song_ids.includes(i)
+                )
                 console.log({ song_ids, selection })
                 this.songs = selection
                 this.num = this.songs.length
@@ -95,10 +102,12 @@ export default {
             So iterate up to N, each time only consider the songs in position i
             */
 
-            let general_distribution = this.all_songs.map(s => s.title)
+            let general_distribution = this.all_songs.map(
+                (s) => s.title
+            )
             let songs = []
             for (let i = 0; i < this.num; i++) {
-                let distribution = this.playlists.map(p => {
+                let distribution = this.playlists.map((p) => {
                     if (i < p.songs.length) {
                         return p.songs[i]
                     }
@@ -120,7 +129,7 @@ export default {
             // this.$router.replace({
             //     path: `/randomize/${song_ids}`
             // })
-        }
-    }
+        },
+    },
 }
 </script>

@@ -27,11 +27,11 @@
 </template>
 <script>
 export default {
-    name: 'BackButton',
+    name: "BackButton",
     computed: {
         history() {
             return window.history
         },
-    }
+    },
 }
 </script>

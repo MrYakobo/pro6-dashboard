@@ -9,7 +9,8 @@
             rounded-lg
             sm:py-2
             flex flex-wrap
-            sm:border-b border-blue-200
+            sm:border-b
+            border-blue-200
             dark:border-0
             justify-center
             text-white
@@ -29,7 +30,14 @@
             "
         >
             <button
-                class="outline-0 group overflow-hidden h-10 w-10 relative"
+                class="
+                    outline-0
+                    group
+                    overflow-hidden
+                    h-10
+                    w-10
+                    relative
+                "
                 @click="toggle_bg_mode"
                 @mouseleave="mouseleave"
             >
@@ -85,38 +93,36 @@
 }
 </style>
 <script>
-import NavLink from './NavLink.vue'
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import NavLink from "./NavLink.vue"
+import { mapState, mapMutations, mapGetters } from "vuex"
 
 import sunday_img from "../img/favicon.png"
 import friday_img from "../img/bg.png"
 
 export default {
-    name: 'Menu',
+    name: "Menu",
     components: { NavLink },
     data() {
         return {
             show_overlay: true,
             sunday_img,
-            friday_img
+            friday_img,
         }
     },
     computed: {
-        ...mapState(['weekday']),
-        ...mapGetters(['is_friday', 'is_sunday']),
+        ...mapState(["weekday"]),
+        ...mapGetters(["is_friday", "is_sunday"]),
         curr_img() {
-            if (this.is_friday)
-                return this.friday_img
+            if (this.is_friday) return this.friday_img
             return this.sunday_img
         },
         switch_img() {
-            if (this.is_friday)
-                return this.sunday_img
+            if (this.is_friday) return this.sunday_img
             return this.friday_img
-        }
+        },
     },
     methods: {
-        ...mapMutations(['set_weekday']),
+        ...mapMutations(["set_weekday"]),
         mouseleave() {
             this.show_overlay = true
         },
@@ -124,7 +130,7 @@ export default {
             let w = this.weekday == 0 ? 5 : 0
             this.set_weekday(w)
             this.show_overlay = false
-        }
-    }
+        },
+    },
 }
 </script>

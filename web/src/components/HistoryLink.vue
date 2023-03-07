@@ -13,16 +13,16 @@
             dark:no-underline
             text-black
             hover:underline
-            dark:text-gray-100
-            dark:hover:text-green-500
+            dark:text-gray-100 dark:hover:text-green-500
         "
-        :to="'/history/' + label">
+        :to="'/history/' + label"
+    >
         {{ label }}
     </router-link>
 </template>
 <script>
 export default {
-    name: 'HistoryLink',
-    props: ['label']
+    name: "HistoryLink",
+    props: ["label"],
 }
 </script>

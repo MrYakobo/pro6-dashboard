@@ -86,13 +86,13 @@ input[type="number"]::-webkit-outer-spin-button {
 </style>
 <script>
 export default {
-    name: 'NumInput',
-    props: ['num'],
+    name: "NumInput",
+    props: ["num"],
     methods: {
         inc(n) {
             let newnum = Math.max(this.num + n, 1)
-            this.$emit('input', newnum)
+            this.$emit("input", newnum)
         },
-    }
+    },
 }
 </script>
