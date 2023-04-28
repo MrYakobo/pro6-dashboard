@@ -3,4 +3,7 @@
 set -exu
 
 COMMITISH="$1"
-ssh pi "rm -rf $SERVER_COLON_PATH/$COMMITISH"
+HOST="$(echo "$SERVER_COLON_PATH" | cut -d: -f1)"
+PATH="$(echo "$SERVER_COLON_PATH" | cut -d: -f2-)"
+
+ssh "$HOST" "rm -rf $PATH/$COMMITISH"
