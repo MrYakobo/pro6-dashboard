@@ -1,0 +1,13 @@
+# compose-file to process from the directories ./indir and output to ./outdir
+# scheduled to run every day at midnight
+version: "3.3"
+services:
+  python:
+    build: .
+    volumes:
+      - "./pro2json.py:/app/pro2json.py:ro"
+      - "./outdir:/outdir"
+      - "./indir:/indir"
+      - "./docker-entrypoint.sh:/docker-entrypoint.sh"
+    restart: always
+    entrypoint: /docker-entrypoint.sh
