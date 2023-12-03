@@ -77,7 +77,8 @@ export default {
     mounted() {
         let weekday = localStorage.getItem("weekday") || "0"
         this.set_weekday(parseInt(weekday))
-        fetch("data/playlists.json")
+        let base = import.meta.env.VITE_DATA_BASE_URL || "data"
+        fetch(base +"/playlists.json")
             .then((response) => {
                 if (response.ok) {
                     return response.json()
@@ -96,7 +97,7 @@ export default {
             .catch((e) => {
                 this.error = e
             })
-        fetch("data/songs.json")
+        fetch(base +"/songs.json")
             .then((response) => {
                 if (response.ok) {
                     return response.json()
