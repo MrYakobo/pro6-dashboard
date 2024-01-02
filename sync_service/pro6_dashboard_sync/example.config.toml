@@ -1,0 +1,9 @@
+[s3]
+aws_access_key_id = "<access_key_id>"
+aws_secret_access_key = "<secret_access_key>"
+endpoint_url = "https://<account_id>.r2.cloudflarestorage.com"
+bucket = "<bucket_name>"
+
+[propresenter]
+pro6pl = "~/Library/Application Support/RenewedVision/ProPresenter6/Playlists/ProPresenter6.pro6pl"
+songs_directory = "~/Documents/ProPresenter6"
