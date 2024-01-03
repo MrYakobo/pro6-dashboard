@@ -13,13 +13,12 @@
         >
             <div
                 class="
-                    sm:w-5/12
-                    mx-2
+                    w-full
+                    sm:w-5/12 sm:mx-2 sm:p-4
                     my-2
                     rounded-lg
                     shadow-sm
                     border-2 border-gray-100
-                    p-4
                     bg-blue-50
                     transition-colors
                     dark:bg-black dark:border-gray-800
@@ -27,7 +26,14 @@
                 v-for="year in years"
                 :key="year"
             >
-                <h2 class="font-bold text-center text-xl">
+                <h2
+                    class="
+                        my-3
+                        sm:my-0
+                        font-bold
+                        text-center text-2xl text-blue-400
+                    "
+                >
                     {{ year }}
                 </h2>
                 <canvas :id="'canvas_' + year"></canvas>

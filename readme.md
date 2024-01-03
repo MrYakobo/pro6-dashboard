@@ -91,3 +91,11 @@ You can also self-host everything. Then you'll need to upload `songs.json` and `
 **View individual songs**
 
 ![](./img/view_song.png)
+
+# Possible Improvements
+
+Right now, the design with dumping all data to JSON means we need to fetch approximately 250kb of gzipped JSON per 1k songs. On a quick CDN like Cloudflare, that is not neccessarly a problem.
+
+However, reading everything into memory can be; searching will only get slower as more data
+gets added. I also don't implement any pagination, so each week, one more element has to be
+rendered.
