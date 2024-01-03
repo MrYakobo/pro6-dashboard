@@ -87,3 +87,7 @@ You can also self-host everything. Then you'll need to upload `songs.json` and `
 **Viewing history of the latest sundays**
 
 ![](./img/history.png)
+
+**View individual songs**
+
+![](./img/view_song.png)
