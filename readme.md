@@ -7,6 +7,14 @@ That question can be answered with an easily accessible tool.
 
 So, here we are.
 
+## Technical Background
+
+Propresenter6 manages it's database in PList XML (.pro6pl for playlists, .pro6 for song files). To make this data accessible for a web client, I've written conversion scripts to JSON.
+
+For maximum availability, I recommend using [Cloudflare R2][1] (but any S3-compatible service ought to work) for hosting these JSON files. It's free and nice hosting. The program `pro6-dashboard-sync` takes care of that.
+
+You can also self-host everything. Then you'll need to upload `songs.json` and `playlists.json`, generated from `pro6-dashboard-convert`, to your own web server.
+
 ## Mac Client Setup
 
 The pro6db-dashboard require the following propresenter files:
@@ -40,7 +48,9 @@ and is documented in [the example config](./sync_service/pro6_dashboard_sync/exa
 
 ## Deploying the web app
 
-The web app requires the urls `$VITE_DATA_BASE_URL/data/songs.json` and `$VITE_DATA_BASE_URL/data/songs.json` to be accessible anonymously, and allow CORS.
+This will require `npm` to be installed on your development machine, to "burn-in" the S3 bucket url.
+
+The web app requires the urls `$VITE_DATA_BASE_URL/data/songs.json` and `$VITE_DATA_BASE_URL/data/songs.json` to be accessible anonymously, and over CORS.
 
 Build the web app like this:
 
@@ -50,8 +60,16 @@ npm install
 VITE_DATA_BASE_URL=https://your-s3-compatible-server/bucket_name npm run build
 ```
 
-Then deploy dist/* on your web server.
+Then deploy dist/* on your web server. I recommend using [Cloudflare Pages][2] for that.
 
 ```bash
+# your own web server
 scp dist/* your_server:/var/www
+
+# cloudflare pages
+npx wrangler pages project create
+npx wrangler pages deploy dist
 ```
+
+[1]: https://www.cloudflare.com/developer-platform/r2/
+[2]: https://pages.cloudflare.com/
