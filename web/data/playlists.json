@@ -1,0 +1,17 @@
+[
+    {
+        "playlist_name": "Playlist1",
+        "playlist_date": "2023-03-05T12:10:16+01:00",
+        "songs": [
+            "Song 1"
+        ]
+    },
+    {
+        "playlist_name": "Playlist2",
+        "playlist_date": "2023-03-12T12:10:23+01:00",
+        "songs": [
+            "Song 1",
+            "Song 2"
+        ]
+    }
+]

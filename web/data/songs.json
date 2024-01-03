@@ -1,0 +1,16 @@
+[
+    {
+        "title": "Song 1",
+        "text": [
+            "Hi this is the first slide",
+            "Second slide"
+        ]
+    },
+    {
+        "title": "Song 2",
+        "text": [
+            "This is the second song",
+            "Yoo"
+        ]
+    }
+]

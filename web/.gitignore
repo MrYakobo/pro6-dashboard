@@ -5,5 +5,3 @@ dist-ssr
 *.local
 public/
 .vscode
-playlists.json
-songs.json

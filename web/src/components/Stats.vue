@@ -1,10 +1,35 @@
 <template>
     <div>
-        <div class="flex flex-col sm:flex-row mt-5">
-            <div class="sm:w-5/12" v-for="year in years" :key="year">
-                <h1 class="font-bold text-center text-xl">
-                    {{ top_n }} vanligaste lovsångerna {{ year }}
-                </h1>
+        <h1 class="my-4 font-bold text-center text-3xl">
+            {{ top_n }} vanligaste lovsångerna
+        </h1>
+        <div
+            class="
+                flex flex-col flex-wrap
+                sm:flex-row
+                mt-5
+                justify-center
+            "
+        >
+            <div
+                class="
+                    sm:w-5/12
+                    mx-2
+                    my-2
+                    rounded-lg
+                    shadow-sm
+                    border-2 border-gray-100
+                    p-4
+                    bg-blue-50
+                    transition-colors
+                    dark:bg-black dark:border-gray-800
+                "
+                v-for="year in years"
+                :key="year"
+            >
+                <h2 class="font-bold text-center text-xl">
+                    {{ year }}
+                </h2>
                 <canvas :id="'canvas_' + year"></canvas>
             </div>
         </div>
@@ -14,16 +39,35 @@
 import Chart from "chart.js/auto"
 import { mapState, mapGetters } from "vuex"
 
+function truncateString(str, num) {
+    // If the length of str is less than or equal to num
+    // just return str--don't truncate it.
+    if (str.length <= num) {
+        return str
+    }
+    // Return str truncated with '...' concatenated to the end of str.
+    return str.slice(0, num) + "..."
+}
+
 export default {
     data() {
         return {
-            years: [2020, 2021],
             top_n: 5,
         }
     },
     computed: {
         ...mapGetters(["playlists"]),
         ...mapState(["all_songs"]),
+        years() {
+            // list all years that exist in the database
+            let years = this.playlists.map((p) =>
+                p.playlist_date.getFullYear()
+            )
+            years.sort()
+
+            // unique years
+            return [...new Set(years)].reverse()
+        },
     },
     methods: {
         value_counts(arr) {
@@ -39,17 +83,16 @@ export default {
                 .map((a) => a.songs)
                 .flat()
 
-            let remove_single_slides =
+            let rm_single_slide_songs =
                 all_songs_from_playlists.filter((song_title) => {
                     let song = this.all_songs.find(
                         (s) => s.title == song_title
                     )
                     if (song == null) return false
 
-                    let splitted = song.text
-                    return splitted.length > 3
+                    return song.text.length > 1
                 })
-            let counts = this.value_counts(remove_single_slides)
+            let counts = this.value_counts(rm_single_slide_songs)
 
             counts = Object.fromEntries(
                 Object.entries(counts)
@@ -57,7 +100,9 @@ export default {
                     .slice(0, this.top_n)
             )
             let data = Object.values(counts)
-            let labels = Object.keys(counts)
+            let labels = Object.keys(counts).map((l) =>
+                truncateString(l, 25)
+            )
 
             let retval = {
                 labels,
@@ -88,14 +133,16 @@ export default {
     },
     mounted() {
         for (let year of this.years) {
-            console.log(year)
             let ctx = document.getElementById("canvas_" + year)
             let data = this.data_most_common_by_year(year)
 
-            const chart = new Chart(ctx, {
+            new Chart(ctx, {
                 type: "bar",
                 data: data,
                 options: {
+                    plugins: {
+                        legend: { display: false },
+                    },
                     scales: {
                         y: {
                             ticks: { precision: 0 },

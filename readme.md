@@ -31,12 +31,12 @@ that
 To install the service user-wide, run the following
 
 ```bash
-pip install https://github.com/MrYakobo/pro6-dashboard
+pip3 install git+https://github.com/MrYakobo/pro6-dashboard#subdirectory=sync_service
 
 # run once to init config
 pro6-dashboard-sync
 
-# edit the config with your bucket credentials, then try syncing again
+# edit the config with your s3 bucket credentials, then try syncing again
 pro6-dashboard-sync
 
 # when you see it's working, enable the service (will run every 30 minutes)
@@ -50,14 +50,14 @@ and is documented in [the example config](./sync_service/pro6_dashboard_sync/exa
 
 This will require `npm` to be installed on your development machine, to "burn-in" the S3 bucket url.
 
-The web app requires the urls `$VITE_DATA_BASE_URL/data/songs.json` and `$VITE_DATA_BASE_URL/data/songs.json` to be accessible anonymously, and over CORS.
+The web app requires the urls `$VITE_DATA_BASE_URL/songs.json` and `$VITE_DATA_BASE_URL/songs.json` to be accessible anonymously, and over CORS.
 
 Build the web app like this:
 
 ```bash
 cd web
 npm install
-VITE_DATA_BASE_URL=https://your-s3-compatible-server/bucket_name npm run build
+VITE_DATA_BASE_URL=https://your-s3-compatible-server/bucket_name/data npm run build
 ```
 
 Then deploy dist/* on your web server. I recommend using [Cloudflare Pages][2] for that.
