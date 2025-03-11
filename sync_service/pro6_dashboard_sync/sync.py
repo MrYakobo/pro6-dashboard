@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 import shutil
 import tempfile
-from pro6_dashboard_sync.lib import generate_jsonfiles
+from pro6_dashboard_sync.convert import generate_jsonfiles
 import toml
 from dataclasses import dataclass
 import boto3
