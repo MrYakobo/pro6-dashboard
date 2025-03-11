@@ -21,7 +21,7 @@ The service converts the above mentioned files to json and uploads the json file
 ## Installation and usage
 
 ```bash
-pip3 install 'git+https://github.com/MrYakobo/pro6-dashboard#subdirectory=sync_service'
+pipx install 'git+https://github.com/MrYakobo/pro6-dashboard#subdirectory=sync_service'
 
 # run once to init config
 pro6-dashboard-sync
